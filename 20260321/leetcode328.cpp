@@ -40,4 +40,34 @@ public:
 
     return head;
   }
+
+  ListNode *oddEvenList2(ListNode *head) {
+    if (head == nullptr || head->next == nullptr) {
+      return head;
+    }
+
+    ListNode *p = head, *q, *r, *tail;
+
+    ListNode *h = new ListNode(0);
+
+    r = h;
+
+    while (p != nullptr) {
+      tail = p;
+      q = p->next;
+      if (q != nullptr) {
+        p->next = q->next;
+        r->next = q;
+        r = q;
+        p = p->next;
+      } else {
+        break;
+      }
+    }
+
+    r->next = nullptr;
+    tail->next = h->next;
+
+    return head;
+  }
 };
