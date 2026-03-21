@@ -23,7 +23,7 @@ public:
         r->next = ou;
         r = r->next;
         pre->next = nullptr;
-        continue;
+        break;
       }
       r->next = ou;
       r = r->next;
