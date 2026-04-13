@@ -1,24 +1,15 @@
 #include <cstddef>
-#include <stack>
+#include "list_node.h"
 #include <unordered_set>
 
 using namespace std;
 
-struct ListNode {
-  int val;
-  ListNode *next;
-
-  ListNode(int x) : val(x), next(nullptr) {}
-};
-
 /**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
+160. 相交链表
+
+*/
+
+
 class Solution {
 public:
   // get size
@@ -83,7 +74,7 @@ public:
     ListNode *pa = headA;
     ListNode *pb = headB;
 
-    while (pa != pb) {
+    while (pa != pb) {//如果没有交点，最终都会为nullptr
       pa = pa == nullptr ? headB : pa->next;
       pb = pb == nullptr ? headA : pb->next;
     }
