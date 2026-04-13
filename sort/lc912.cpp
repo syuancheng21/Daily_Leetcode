@@ -1,4 +1,5 @@
 #include <cstddef>
+#include <iostream>
 #include <utility>
 #include <vector>
 
@@ -8,18 +9,37 @@ class Solution {
 public:
   vector<int> sortArray(vector<int> &nums) {
     int n = nums.size();
-    for (size_t i = 0; i < n - 1; i++) {
+    if (n < 2) {
+      return nums;
+    }
+
+    for (int i = 0; i < n; ++i) {
       bool swapped = false;
-      for (size_t j = 0; j < n - 1 - i; j++) {
+      for (int j = 0; j + 1 < n - i; ++j) {
         if (nums[j] > nums[j + 1]) {
           swap(nums[j], nums[j + 1]);
           swapped = true;
         }
       }
+
       if (!swapped) {
-        return nums;
+        break;
       }
     }
+
+    // for (int i = 0; i < n - 1; ++i) {
+    //   bool swapped = false;
+
+    //   for (int j = 0; j < n - 1 - i; ++j) {
+    //     if (nums[j] > nums[j + 1]) {
+    //       std::swap(nums[j], nums[j + 1]);
+    //       swapped = true;
+    //     }
+    //   }
+
+    //   if (!swapped)
+    //     break;
+    // }
 
     return nums;
   }
@@ -57,6 +77,11 @@ public:
     return nums;
   }
 
+  vector<int> sortArray4(vector<int> &nums) {
+    quickSort(nums, 0, nums.size() - 1);
+    return nums;
+  }
+
   int Partition(vector<int> &nums, int s, int t) {
     int i = s, j = t;
     int base = nums[s];
@@ -87,9 +112,16 @@ public:
       quickSort(nums, i + 1, t);
     }
   }
-
-  vector<int> sortArray4(vector<int> &nums) {
-    quickSort(nums, 0, nums.size() - 1);
-    return nums;
-  }
 };
+
+int main() {
+  vector<int> test = {2, 3, 1, 5, 4};
+  Solution s;
+  s.sortArray(test);
+
+  for (const auto &val : test) {
+    cout << val << endl;
+  }
+
+  return 0;
+}
