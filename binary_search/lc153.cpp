@@ -18,7 +18,7 @@ public:
       if (nums[l] <= nums[mid]) {
         l = mid+1;
       } else {
-        r = mid;
+         r = mid;
       }
     }
     return 0;
