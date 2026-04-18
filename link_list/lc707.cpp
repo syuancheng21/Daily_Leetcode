@@ -1,6 +1,10 @@
 #include "list_node.h"
 #include <cstddef>
 
+/**
+707. 设计链表
+*/
+
 class MyLinkedList {
 private:
   ListNode *_dummy;

@@ -1,13 +1,10 @@
+#include "list_node.h"
 #include <cstddef>
 #include <vector>
-struct ListNode {
-  int val;
-  ListNode *next;
-  ListNode() : val(0), next(nullptr) {}
-  ListNode(int x) : val(x), next(nullptr) {}
-  ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
 
+/**
+234. 回文链表
+*/
 class Solution {
 public:
   bool isPalindrome(ListNode *head) {
@@ -16,20 +13,38 @@ public:
     }
     std::vector<int> vals;
 
-    while (head) {
-      vals.push_back(head->val);
-      head = head->next;
+    ListNode *curr = head;
+    while (curr) {
+      vals.push_back(curr->val);
+      curr = curr->next;
     }
 
-    int i = 0, j = vals.size() - 1;
-    while (i < j) {
-      if (vals[i] != vals[j]) {
+    int l = 0, r = vals.size() - 1;
+    while (l < r) {
+      if (vals[l] != vals[r]) {
         return false;
       }
-      i++;
-      j--;
+      l++;
+      r--;
     }
     return true;
+  }
+
+  ListNode *reverseListNode(ListNode *head) {
+    if (head == nullptr || head->next == nullptr) {
+      return head;
+    }
+    ListNode *dummy = new ListNode(0);
+
+    ListNode *curr = head;
+    while (curr) {
+      ListNode *tmp = curr->next;
+      curr->next = dummy->next;
+      dummy->next = curr;
+
+      curr = tmp;
+    }
+    return dummy->next;
   }
 
   bool isPalindrome2(ListNode *head) {
@@ -37,32 +52,20 @@ public:
       return true;
     }
 
-    auto *fast = head, *slow = head;
-
+    ListNode *slow = head, *fast = head;
     while (fast->next != nullptr && fast->next->next != nullptr) {
       slow = slow->next;
       fast = fast->next->next;
     }
 
-    auto *h1 = head;
-
-    auto *cur = slow->next;
-    slow->next = nullptr;
-    while (cur) {
-      auto tmp = cur->next;
-      cur->next = slow->next;
-      slow->next = cur;
-      cur = tmp;
-    }
-
-    auto *h2 = slow->next;
-
-    while (h1 && h2) {
-      if (h1->val != h2->val) {
+    ListNode *head2 = reverseListNode(slow->next);
+    ListNode *head1 = head;
+    while (head1 && head2) {
+      if (head1->val != head2->val) {
         return false;
       }
-      h1 = h1->next;
-      h2 = h2->next;
+      head1 = head1->next;
+      head2 = head2->next;
     }
 
     return true;
