@@ -4,6 +4,10 @@
 #include <unordered_set>
 #include "math.h"
 
+/**
+3. 无重复字符的最长子串
+*/
+
 using namespace std;
 
 class Solution {
@@ -32,17 +36,19 @@ public:
   int lengthOfLongestSubstringV2(string s) {
     unordered_set<char> ch_set;
     int n = s.size();
+    int ans = 0;
+    for (int l = 0, r = 0; r < n; r++) {
+      const auto &ch = s.at(r);
 
-    int res = 0;
-    for (int left = 0, right = 0; right < n; right++) {
-      auto& ch = s.at(right);
       while (ch_set.count(ch) == 1) {
-        ch_set.erase(s.at(left));
-        left++;
+        ch_set.erase(s.at(l));
+        l++;
       }
+
       ch_set.insert(ch);
-      res = max(res, right-left+1);
+      ans = max(ans, r - l +1);
     }
-    return res;
+
+    return ans;
   }
 };
